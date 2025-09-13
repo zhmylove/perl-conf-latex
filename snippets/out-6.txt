@@ -1,0 +1,2 @@
+$ perl test.pl
+13 hash

@@ -1,0 +1,162 @@
+\documentclass[14pt, aspectratio=169]{beamer}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{adjustbox}
+
+% fonts config
+\setmainfont{DejaVu Sans}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+% colours
+\definecolor{perlconf-blue}{HTML}{1E8BB3}
+\setbeamercolor{itemize item}{fg=perlconf-blue}
+\setbeamercolor{itemize subitem}{fg=perlconf-blue}
+\setbeamercolor{itemize subsubitem}{fg=perlconf-blue}
+
+\setbeamercolor{enumerate item}{fg=perlconf-blue}
+\setbeamercolor{enumerate subitem}{fg=perlconf-blue}
+\setbeamercolor{enumerate subsubitem}{fg=perlconf-blue}
+
+\setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamertemplate{itemize subsubitem}[square]
+
+% commands
+%% insert logo from file; \logoimage[1cm]
+\newcommand{\logoimage}[1][1cm]{\includegraphics[height=#1]{include/logo.pdf}}
+
+%% insert code from file; \inputcode{language}{filepath}
+\newcommand{\inputcode}[2]{
+    \begin{adjustbox}{max width=\textwidth, max height=0.8\textheight, keepaspectratio}
+    \lstinputlisting[style=lststyle, showlines=true, language=#1]{#2}
+    \end{adjustbox}
+}
+
+%% \position{Role, Company}
+\newcommand{\position}[1]{\gdef\@position{#1}}
+\newcommand{\insertposition}{\@position}
+
+%% final frame
+\newcommand{\finalframe}{
+    \begin{frame}[plain]
+        \centering
+        \vspace{1.5cm}
+        {\Large Спасибо за внимание!}
+    
+        \vspace{0.5cm}
+        {\large Вопросы?}
+        
+        \vspace{0.5cm}
+        \logoimage
+    \end{frame}
+}
+
+%% title frame; requires \author and \title
+\newcommand{\titleframe}{
+    \begin{frame}[plain]
+        \centering
+        \vspace{1.5cm}
+        {\Large\bfseries\inserttitle\par}
+        \vspace{0.8cm}
+        {\large\insertauthor\par}
+        \vspace{0.1cm}
+        {\insertposition\par}
+        \vspace{0.5cm}
+        \vfill
+        \logoimage
+    \end{frame}
+}
+
+%% author frame; requires \author and \title
+\newcommand{\authorframe}[1]{
+    \begin{frame}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.39\textwidth}
+            \vspace{-20mm}%
+            \hspace{-10mm}%
+            \begin{tikzpicture}
+                \fill[color=perlconf-blue] (0,0) rectangle (\columnwidth,\paperheight+5mm);
+                \begin{scope}
+                    \clip (\columnwidth/2, \paperheight/2) circle (2cm);
+                    \node at (\columnwidth/2, \paperheight/2) {
+                        \includegraphics[width=4cm,height=4cm,keepaspectratio]{include/author.jpg}
+                    };
+                \end{scope}
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.7\textwidth}
+            \vfill
+            {
+                \color{perlconf-blue}
+                \Large \insertauthor\par
+                \vspace{0.5cm}
+                \normalsize \insertposition\par
+                \vspace{0.5cm}
+            }
+            #1
+            \vfill
+        \end{column}
+    \end{columns}
+    \end{frame}
+}
+
+% END of commands
+
+% hide navigation
+\setbeamertemplate{navigation symbols}{}
+
+% frame page numbers config
+\setbeamertemplate{footline}{%
+    \hfill\large\color{perlconf-blue}\insertframenumber%
+    \hspace{0.5cm}\vspace{0.5cm}%
+}
+
+% frame logo config
+\setbeamertemplate{headline}{%
+    \vspace{0.5cm}
+    \hfill
+    \logoimage[0.7cm]
+    \hspace{0.3cm}
+	\hfill
+}
+
+% frame header config
+\setbeamertemplate{frametitle}{%
+    \vspace{-0.8cm}%
+    \hspace{-0.5cm}%
+    \large\color{perlconf-blue}\insertframetitle%
+}
+
+% lstlistings config
+\lstdefinestyle{lststyle}{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{perlconf-blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red!50!black},
+    showstringspaces=false,
+    tabsize=4,
+    frame=none,
+    xleftmargin=10pt,
+    xrightmargin=10pt
+}
+
+\lstdefinelanguage{XS}{
+    morekeywords={MODULE, PACKAGE, PREFIX, CODE, OUTPUT, INIT, PREINIT, CLEANUP},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]{"}
+}
+
+\lstdefinelanguage{XStypemap}{
+    morekeywords={TYPEMAP, INPUT, OUTPUT},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]{"}
+}

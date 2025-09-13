@@ -1,0 +1,203 @@
+\input{include/perl-conf.tex}
+\title{Описание typemap для передачи структур в XS}
+\author{Ступницкий Иван}
+\position{Инженер, YADRO}
+\begin{document}
+\titleframe
+
+% Plan
+\begin{frame}[fragile]{О чём расскажу}
+    \begin{enumerate}
+        \item Кто я
+        \item Как переводится название доклада
+        \item Подопытная библиотека
+        \item XS в двух словах
+        \item В чём вообще проблема
+        \item Способы передачи структур в XS
+        \item Передача структур из XS в Perl
+        \item Как и что в итоге использовать
+    \end{enumerate}
+\end{frame}
+
+% Author frame
+\authorframe{
+    \begin{itemize}
+        \item Два года программирую\\ на Perl за деньги\\~
+        \item Увлекаюсь информационной безопасностью и сложными системами
+    \end{itemize}
+}
+
+\begin{frame}[fragile]{Как переводится название доклада}
+    \centering
+    \hspace{0.5cm}
+    \includegraphics[height=\textheight]{snippets/xs-compilation-scheme.png}
+\end{frame}
+
+\begin{frame}[fragile]{Подопытная библиотека libfoo}
+    \inputcode{C}{snippets/foo-simple.c}
+    \par\vspace{0.5cm}
+    \inputcode{C}{snippets/foo-simple.h}
+\end{frame}
+
+\begin{frame}[fragile]{Вызов libfoo из Си}
+    \inputcode{C}{snippets/bar-simple.c}
+    \par\vspace{0.5cm}
+    \inputcode{bash}{snippets/bar-output.txt}
+\end{frame}
+
+\begin{frame}[fragile]{Что почитать про XS}
+    \begin{itemize}
+        \item \texttt{perlxstut}
+        \item \texttt{perlxs}
+        \item \texttt{perlguts}
+        \item \texttt{perlapi}
+        \item \texttt{perlxstypemap}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{XS в двух словах}
+    \only<1>{
+        \inputcode{bash}{snippets/xs-quick-start.txt}
+    }
+    \only<2>{
+        \inputcode{bash}{snippets/xs-quick-start-comments.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Основной модуль}
+    \inputcode{Perl}{snippets/xs-basic-lib.pl}
+\end{frame}
+
+\begin{frame}[fragile]{Mytest.xs}
+    \inputcode{XS}{snippets/Mytest.xs}
+\end{frame}
+
+\begin{frame}[fragile]{Вызов libfoo из XS}
+    \inputcode{XS}{snippets/xs-1.xs}
+\end{frame}
+
+\begin{frame}[fragile]{Makefile.PL}
+    \only<1>{
+        \inputcode{Perl}{snippets/Makefile.PL}
+    }
+    \only<2>{
+        \inputcode{Perl}{snippets/Makefile-1.PL}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Тестирование}
+    \inputcode{Perl}{snippets/test-1.pl}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-1.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Структура в libfoo}
+    \inputcode{C}{snippets/foo-struct.c}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{C}{snippets/foo-struct.h}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Вот и всё!\onslide<4->{ (нет)}}
+    \inputcode{XS}{snippets/xs-2.xs}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{Perl}{snippets/test-2.pl}
+    }
+
+    \onslide<3->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-2.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{В XS нужно проще}
+    \inputcode{XS}{snippets/xs-1a.xs}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{Perl}{snippets/test-1a.pl}
+    }
+
+    \onslide<3->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-1.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{А теперь со структурой}
+    \inputcode{XS}{snippets/xs-3.xs}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-3.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Что такое typemap}
+    TODO % TODO
+\end{frame}
+
+\begin{frame}[fragile]{T\_PACKED}
+    \inputcode{XStypemap}{snippets/typemap-4}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/xs-4.xs}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{T\_PACKED fuckup}
+    \inputcode{sh}{snippets/out-4.txt}
+\end{frame}
+
+\begin{frame}[fragile]{Фикс для T\_PACKED}
+    \inputcode{XStypemap}{snippets/typemap-4a}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-4a.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Как это выглядит в Си}
+    TODO % TODO extra function call
+\end{frame}
+
+\begin{frame}[fragile]{Избежать вызова функции}
+    \inputcode{XStypemap}{snippets/typemap-5}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-5.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{А теперь без хардкода}
+    \inputcode{XStypemap}{snippets/typemap-6}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{Perl}{snippets/test-6.pl}
+    }
+
+    \onslide<3->{
+        \vspace{0.5cm}
+        \inputcode{sh}{snippets/out-6.txt}
+    }
+\end{frame}
+
+% TODO надо ещё про OUTPUT рассказать
+
+\begin{frame}[fragile]{Выводы}
+    TODO % TODO
+\end{frame}
+
+\finalframe
+\end{document}
