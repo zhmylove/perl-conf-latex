@@ -1,0 +1,6 @@
+$ perl test
+100500 pwnd
+$VAR1 = {
+          'number' => 100500,
+          'string' => 'pwnd'
+        };
