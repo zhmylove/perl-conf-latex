@@ -1,4 +1,4 @@
-MODULE = xs		PACKAGE = xs		
+MODULE = Mytest		PACKAGE = Mytest
 
 void
 foo(struct foo var)

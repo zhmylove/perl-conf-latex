@@ -8,7 +8,7 @@
 #include "foo.h"
 
 
-MODULE = Mytest		PACKAGE = Mytest		
+MODULE = Mytest		PACKAGE = Mytest
 
 void
 xs()

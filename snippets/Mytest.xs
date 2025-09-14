@@ -6,5 +6,5 @@
 #include "ppport.h"
 
 
-MODULE = Mytest		PACKAGE = Mytest		
+MODULE = Mytest		PACKAGE = Mytest
 

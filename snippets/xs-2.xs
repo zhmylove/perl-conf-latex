@@ -1,4 +1,4 @@
-MODULE = Mytest		PACKAGE = Mytest		
+MODULE = Mytest		PACKAGE = Mytest
 
 void
 xs(int number, char* string)

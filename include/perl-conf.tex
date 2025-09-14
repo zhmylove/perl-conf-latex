@@ -42,7 +42,15 @@
 
 %% final frame
 \newcommand{\finalframe}{
+    \begingroup
+    \setbeamertemplate{background}{
+        \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \fill[color=perlconf-blue] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \end{tikzpicture}
+    }
     \begin{frame}[plain]
+        \color{white}
         \centering
         \vspace{1.5cm}
         {\Large Спасибо за внимание!}
@@ -53,11 +61,20 @@
         \vspace{0.5cm}
         \logoimage
     \end{frame}
+    \endgroup
 }
 
 %% title frame; requires \author and \title
 \newcommand{\titleframe}{
+    \begingroup
+    \setbeamertemplate{background}{
+        \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \fill[color=perlconf-blue] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \end{tikzpicture}
+    }
     \begin{frame}[plain]
+        \color{white}
         \centering
         \vspace{1.5cm}
         {\Large\bfseries\inserttitle\par}
@@ -69,6 +86,7 @@
         \vfill
         \logoimage
     \end{frame}
+    \endgroup
 }
 
 %% author frame; requires \author and \title
@@ -151,12 +169,20 @@
     morekeywords={MODULE, PACKAGE, PREFIX, CODE, OUTPUT, INIT, PREINIT, CLEANUP},
     sensitive=true,
     morecomment=[l]{\#},
-    morestring=[b]{"}
+    morestring=[b]{"},
+    morestring=[b]{'},
 }
 
 \lstdefinelanguage{XStypemap}{
     morekeywords={TYPEMAP, INPUT, OUTPUT},
     sensitive=true,
     morecomment=[l]{\#},
-    morestring=[b]{"}
+    alsoletter={\$},
+    literate={\"}{{\textquotedbl}}1,
+}
+
+\lstdefinelanguage{txt}{
+    morecomment=[l]{\#},
+    morestring=[b]{"},
+    morestring=[b]{'},
 }
