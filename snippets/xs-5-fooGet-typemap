@@ -1,0 +1,6 @@
+OUTPUT
+T_STRUCT_FOO
+    HV* hash = newHV();
+    hv_stores(hash, \"number\", newSViv($var.number));
+    hv_stores(hash, \"string\", newSVpv($var.string, 0));
+    $arg = sv_2mortal(newRV_noinc((SV*)hash));

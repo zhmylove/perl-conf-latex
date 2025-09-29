@@ -1,0 +1,5 @@
+# ExtUtils/typemap
+TYPEMAP
+int     T_IV
+long    T_IV
+short   T_IV

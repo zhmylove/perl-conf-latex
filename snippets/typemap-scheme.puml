@@ -1,0 +1,27 @@
+@startuml
+skinparam backgroundColor #FEFEFE
+scale 2
+
+skinparam participant {
+  BackgroundColor #1E8BB3
+  FontColor white
+  FontStyle bold
+  BorderColor #000000
+}
+
+skinparam sequence {
+  ArrowColor #000000
+}
+
+participant "Perl Function\nParameters" as CParams
+participant "Typemap\n(INPUT)" as TypemapIn
+participant "XS Code" as XSCode
+participant "Typemap\n(OUTPUT)" as TypemapOut
+participant "Perl Values" as PerlVals
+
+CParams -> TypemapIn : Perl arg → C value
+TypemapIn -> XSCode : pass C value
+XSCode -> TypemapOut : return C value
+TypemapOut -> PerlVals : C value → Perl value
+
+@enduml
