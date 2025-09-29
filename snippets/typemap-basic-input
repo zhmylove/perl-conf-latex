@@ -1,0 +1,3 @@
+INPUT
+T_IV
+    $var = ($type)SvIV($arg)

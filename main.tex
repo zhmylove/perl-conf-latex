@@ -9,9 +9,10 @@
 \begin{frame}[fragile]{О чём расскажу}
     \begin{enumerate}
         \item Кто я
+        \item Problem?
+        \item XS в двух словах
         \item Как переводится название доклада
         \item Подопытная библиотека
-        \item XS в двух словах
         \item В чём вообще проблема
         \item Способы передачи структур в XS
         \item Передача структур из XS в Perl
@@ -27,26 +28,27 @@
     \end{itemize}
 }
 
-\begin{frame}[fragile]{Как переводится название доклада}
+\begin{frame}[fragile]{Мотивация к докладу}
     \centering
-    \hspace{0.5cm}
-    \includegraphics[height=\textheight]{snippets/xs-compilation-scheme.png}
+    \includegraphics[width=.4\textwidth]{snippets/xorg_logo.png}\hfill
+    \includegraphics[width=.4\textwidth]{snippets/xcb_logo.png}\hfill
 \end{frame}
 
-\begin{frame}[fragile]{Подопытная библиотека libfoo}
-    \inputcode{C}{snippets/foo-simple.c}
-    \par\vspace{0.5cm}
-    \inputcode{C}{snippets/foo-simple.h}
+\begin{frame}[fragile]{Мотивация к докладу}
+    \inputcode{C}{snippets/xcb_randr_mode_info_t.c}
 \end{frame}
 
-\begin{frame}[fragile]{Вызов libfoo из Си}
-    \inputcode{C}{snippets/bar-simple.c}
-    \par\vspace{0.5cm}
-    \inputcode{txt}{snippets/bar-output.txt}
+\begin{frame}[fragile]{Мотивация к докладу}
+    \inputcode{C}{snippets/xcb_randr_create_mode.c}
+\end{frame}
+
+\begin{frame}[fragile]{Мотивация к докладу}
+    \inputcode{Perl}{snippets/korgwm_xs_example.pl}
 \end{frame}
 
 \begin{frame}[fragile]{Что почитать про XS}
     \begin{itemize}
+        \setlength\itemsep{1em}
         \item \texttt{perlxstut}
         \item \texttt{perlxs}
         \item \texttt{perlguts}
@@ -70,6 +72,28 @@
 
 \begin{frame}[fragile]{Mytest.xs}
     \inputcode{XS}{snippets/Mytest.xs}
+\end{frame}
+
+\begin{frame}[fragile]{Makefile.PL}
+    \inputcode{Perl}{snippets/Makefile.PL}
+\end{frame}
+
+\begin{frame}[fragile]{Как переводится название доклада}
+    \centering
+    \hspace{0.5cm}
+    \includegraphics[height=\textheight]{snippets/xs-compilation-scheme.png}
+\end{frame}
+
+\begin{frame}[fragile]{Подопытная библиотека libfoo}
+    \inputcode{C}{snippets/foo-simple.c}
+    \par\vspace{0.5cm}
+    \inputcode{C}{snippets/foo-simple.h}
+\end{frame}
+
+\begin{frame}[fragile]{Вызов libfoo из Си}
+    \inputcode{C}{snippets/bar-simple.c}
+    \par\vspace{0.5cm}
+    \inputcode{txt}{snippets/bar-output.txt}
 \end{frame}
 
 \begin{frame}[fragile]{Вызов libfoo из XS}
@@ -141,7 +165,26 @@
 \end{frame}
 
 \begin{frame}[fragile]{Что такое typemap}
-    TODO % TODO
+    \centering
+    \hspace{0.5cm}
+    \includegraphics[width=\textwidth]{snippets/typemap-scheme.png}
+\end{frame}
+
+\begin{frame}[fragile]{Что такое typemap}
+    \onslide<1->{}
+    \onslide<4->{
+        \inputcode{XStypemap}{snippets/typemap-basic-typemap}
+    }
+
+    \onslide<2->{
+        \vspace{0.25cm}
+        \inputcode{XStypemap}{snippets/typemap-basic-input}
+    }
+
+    \onslide<3->{
+        \vspace{0.25cm}
+        \inputcode{XStypemap}{snippets/typemap-basic-output}
+    }
 \end{frame}
 
 \begin{frame}[fragile]{T\_PACKED}
@@ -179,6 +222,42 @@
     }
 \end{frame}
 
+\begin{frame}[fragile]{Как это выглядит в Си}
+    \inputcode{C}{snippets/xs-5.c}
+\end{frame}
+
+\begin{frame}[fragile]{Передача структуры C -> Perl [1]}
+    \inputcode{C}{snippets/xs-5-fooGet.c}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{C}{snippets/xs-5-fooGet.h}
+    }
+
+    \onslide<3->{
+        \vspace{0.5cm}
+        \inputcode{XS}{snippets/xs-5-fooGet.xs}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Передача структуры C -> Perl [2]}
+    \inputcode{XStypemap}{snippets/xs-5-fooGet-typemap}
+\end{frame}
+
+
+\begin{frame}[fragile]{Передача структуры C -> Perl [3]}
+    \inputcode{Perl}{snippets/xs-5-fooGet-test.pl}
+
+    \onslide<2->{
+        \vspace{0.5cm}
+        \inputcode{txt}{snippets/xs-5-fooGet-out.txt}
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Как это выглядит в Си}
+    \inputcode{C}{snippets/xs-5-fooGet-xsc.c}
+\end{frame}
+
 \begin{frame}[fragile]{А теперь без хардкода}
     \inputcode{XStypemap}{snippets/typemap-6}
 
@@ -192,8 +271,6 @@
         \inputcode{txt}{snippets/out-6.txt}
     }
 \end{frame}
-
-% TODO надо ещё про OUTPUT рассказать
 
 \begin{frame}[fragile]{Финальный typemap [1]}
     \inputcode{XStypemap}{snippets/typemap-final-1}
@@ -213,7 +290,12 @@
 \end{frame}
 
 \begin{frame}[fragile]{Выводы}
-    TODO % TODO
+    В простом случае можно описывать код в функциях на Си и использовать T\_PACKED\textcolor{gray}{\_PATCHED}
+    => компилятор сделает работу за вас :)
+    \vspace{0.5cm}
+
+    При работе со сложными структурами или для\\
+    явного контроля трансляции предпочтительнее написать typemap
 \end{frame}
 
 \finalframe

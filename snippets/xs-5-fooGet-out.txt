@@ -1,0 +1,5 @@
+$perl test
+$VAR1 = {
+          'string' => 'Hi from C',
+          'number' => 42
+        };

@@ -1,0 +1,3 @@
+OUTPUT
+T_IV
+    sv_setiv($arg, (IV)$var);
